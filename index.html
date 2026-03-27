@@ -6,39 +6,23 @@
 <title>NovaTech Services</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial;
-}
-
 body {
-  background: linear-gradient(135deg, #0f172a, #1e1b4b);
+  font-family: Arial;
+  background: #0f172a;
   color: white;
-}
-
-/* HERO */
-.hero {
   text-align: center;
-  padding: 80px 20px;
+  padding: 50px;
 }
 
-.hero h1 {
-  font-size: 2.5rem;
-  color: #8b5cf6;
-}
-
-/* BUTTON */
-.btn {
-  background: #8b5cf6;
+button {
   padding: 10px 20px;
-  border-radius: 20px;
+  background: #8b5cf6;
+  border: none;
   color: white;
-  text-decoration: none;
+  border-radius: 5px;
 }
 
-/* CHATBOT */
+/* CHAT */
 #chatbot {
   position: fixed;
   bottom: 20px;
@@ -71,31 +55,23 @@ body {
 
 <body>
 
-<section class="hero">
-  <h1>NovaTech Services</h1>
-  <p>Smart Tech. Simple Solutions.</p>
-  <br>
-  <a class="btn" href="https://wa.me/264812275888">Contact WhatsApp</a>
-</section>
+<h1>NovaTech Services</h1>
+<p>Smart Tech. Simple Solutions.</p>
 
-<!-- CHATBOT -->
+<button onclick="toggleChat()">💬 Chat with NovaAI</button>
+
 <div id="chatbot">
   <div id="chat-header" onclick="toggleChat()">NovaAI 🤖</div>
   <div id="chat-body"></div>
   <input id="chat-input" placeholder="Type message..." onkeydown="handleChat(event)">
 </div>
 
-<button onclick="toggleChat()" style="position:fixed;bottom:20px;right:20px;">💬</button>
-
 <script>
-
-// OPEN/CLOSE CHAT
 function toggleChat(){
   const chat = document.getElementById('chatbot');
   chat.style.display = chat.style.display === 'block' ? 'none' : 'block';
 }
 
-// 🔥 REAL AI CHAT FUNCTION (FIXED)
 async function handleChat(e){
   if(e.key === "Enter"){
     e.preventDefault();
@@ -104,8 +80,7 @@ async function handleChat(e){
     const body = document.getElementById("chat-body");
 
     const userMsg = input.value.trim();
-
-    if(userMsg === "") return;
+    if(!userMsg) return;
 
     body.innerHTML += `<p><b>You:</b> ${userMsg}</p>`;
 
@@ -118,23 +93,18 @@ async function handleChat(e){
         body: JSON.stringify({ message: userMsg })
       });
 
-      if(!res.ok){
-        throw new Error("Server error");
-      }
-
       const data = await res.json();
 
       body.innerHTML += `<p><b>NovaAI:</b> ${data.reply}</p>`;
 
-    } catch (error) {
-      body.innerHTML += `<p><b>NovaAI:</b> ⚠️ Cannot connect to AI server</p>`;
+    } catch (err) {
+      body.innerHTML += `<p><b>NovaAI:</b> ⚠️ Cannot connect to server</p>`;
     }
 
     input.value = "";
     body.scrollTop = body.scrollHeight;
   }
 }
-
 </script>
 
 </body>

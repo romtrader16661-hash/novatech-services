@@ -10,101 +10,32 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-  scroll-behavior: smooth;
+  font-family: Arial;
 }
 
 body {
-  background: linear-gradient(135deg, #0f172a, #1e1b4b, #312e81);
+  background: linear-gradient(135deg, #0f172a, #1e1b4b);
   color: white;
-}
-
-/* NAV */
-nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 40px;
-}
-
-nav h1 { color: #8b5cf6; }
-
-nav a {
-  color: white;
-  margin-left: 20px;
-  text-decoration: none;
 }
 
 /* HERO */
 .hero {
   text-align: center;
-  padding: 100px 20px;
-  animation: fadeIn 2s ease-in;
+  padding: 80px 20px;
 }
 
-.hero h2 {
-  font-size: 3rem;
+.hero h1 {
+  font-size: 2.5rem;
+  color: #8b5cf6;
 }
 
-.hero span { color: #a78bfa; }
-
+/* BUTTON */
 .btn {
   background: #8b5cf6;
-  padding: 12px 25px;
-  border-radius: 25px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  color: white;
   text-decoration: none;
-  color: white;
-}
-
-/* CARDS */
-.services, .pricing {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 50px 20px;
-}
-
-.card {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  padding: 20px;
-  margin: 15px;
-  border-radius: 15px;
-  width: 250px;
-  transition: 0.3s;
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card:hover {
-  transform: scale(1.05);
-}
-
-/* CONTACT FORM */
-form {
-  display: flex;
-  flex-direction: column;
-  width: 300px;
-  margin: auto;
-}
-
-input, textarea {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-}
-
-button {
-  padding: 10px;
-  background: #8b5cf6;
-  border: none;
-  color: white;
-  border-radius: 8px;
 }
 
 /* CHATBOT */
@@ -135,119 +66,75 @@ button {
   padding: 10px;
   border: none;
 }
-
-/* ANIMATION */
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
-}
 </style>
 </head>
 
 <body>
 
-<nav>
-  <h1>NovaTech</h1>
-  <div>
-    <a href="#services">Services</a>
-    <a href="#pricing">Pricing</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
-
 <section class="hero">
-  <h2>Smart Tech <span>Solutions</span></h2>
-  <p>We help you fix, build, and grow with technology.</p>
-  <a class="btn" href="https://wa.me/264812275888">Contact on WhatsApp</a>
-</section>
-
-<section id="services" class="services">
-  <div class="card">📱 Phone Setup</div>
-  <div class="card">💻 Laptop Boost</div>
-  <div class="card">🌐 Website Creation</div>
-  <div class="card">🤖 AI Setup</div>
-</section>
-
-<section id="pricing" class="pricing">
-  <div class="card">
-    <h3>Basic</h3>
-    <p>N$50 - N$150</p>
-    <p>Phone & small fixes</p>
-  </div>
-
-  <div class="card">
-    <h3>Standard</h3>
-    <p>N$200 - N$500</p>
-    <p>Websites & setups</p>
-  </div>
-
-  <div class="card">
-    <h3>Premium</h3>
-    <p>N$1000+</p>
-    <p>AI & business solutions</p>
-  </div>
-</section>
-
-<section id="contact">
-  <h2 style="text-align:center;">Contact Us</h2>
-
-  <form onsubmit="sendMessage(event)">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea placeholder="Your Message"></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-
-  <p style="text-align:center;">📞 0812275888 / 0858203997</p>
+  <h1>NovaTech Services</h1>
+  <p>Smart Tech. Simple Solutions.</p>
+  <br>
+  <a class="btn" href="https://wa.me/264812275888">Contact WhatsApp</a>
 </section>
 
 <!-- CHATBOT -->
 <div id="chatbot">
   <div id="chat-header" onclick="toggleChat()">NovaAI 🤖</div>
   <div id="chat-body"></div>
-  <input id="chat-input" placeholder="Ask something..." onkeydown="handleChat(event)">
+  <input id="chat-input" placeholder="Type message..." onkeydown="handleChat(event)">
 </div>
 
 <button onclick="toggleChat()" style="position:fixed;bottom:20px;right:20px;">💬</button>
 
 <script>
-// SCROLL ANIMATION
-const cards = document.querySelectorAll('.card');
-window.addEventListener('scroll', () => {
-  cards.forEach(card => {
-    const top = card.getBoundingClientRect().top;
-    if(top < window.innerHeight - 50){
-      card.classList.add('show');
-    }
-  });
-});
 
-// CONTACT FORM (WhatsApp redirect)
-function sendMessage(e){
-  e.preventDefault();
-  alert("Message sent! We will contact you.");
-}
-
-// CHATBOT
+// OPEN/CLOSE CHAT
 function toggleChat(){
   const chat = document.getElementById('chatbot');
   chat.style.display = chat.style.display === 'block' ? 'none' : 'block';
 }
 
-function handleChat(e){
+// 🔥 REAL AI CHAT FUNCTION (FIXED)
+async function handleChat(e){
   if(e.key === "Enter"){
-    let input = document.getElementById("chat-input");
-    let body = document.getElementById("chat-body");
+    e.preventDefault();
 
-    let userMsg = input.value;
-    body.innerHTML += "<p><b>You:</b> " + userMsg + "</p>";
+    const input = document.getElementById("chat-input");
+    const body = document.getElementById("chat-body");
 
-    let reply = "We offer tech services, websites, and AI solutions. Contact us for more!";
-    body.innerHTML += "<p><b>NovaAI:</b> " + reply + "</p>";
+    const userMsg = input.value.trim();
+
+    if(userMsg === "") return;
+
+    body.innerHTML += `<p><b>You:</b> ${userMsg}</p>`;
+
+    try {
+      const res = await fetch("http://localhost:3000/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: userMsg })
+      });
+
+      if(!res.ok){
+        throw new Error("Server error");
+      }
+
+      const data = await res.json();
+
+      body.innerHTML += `<p><b>NovaAI:</b> ${data.reply}</p>`;
+
+    } catch (error) {
+      body.innerHTML += `<p><b>NovaAI:</b> ⚠️ Cannot connect to AI server</p>`;
+    }
 
     input.value = "";
+    body.scrollTop = body.scrollHeight;
   }
 }
+
 </script>
 
 </body>
